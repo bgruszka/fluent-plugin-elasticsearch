@@ -13,7 +13,7 @@ module Fluent::Plugin
     config_param :data_stream_template_name, :string, :default => nil
     config_param :data_stream_ilm_policy, :string, :default => nil
     config_param :data_stream_ilm_policy_overwrite, :bool, :default => false
-    config_param :data_stream_template_do_not_use_wildcard, :bool, :default => false
+    config_param :data_stream_template_do_not_use_index_patterns_wildcard, :bool, :default => false
 
     # Elasticsearch 7.9 or later always support new style of index template.
     config_set_default :use_legacy_template, false
@@ -113,7 +113,7 @@ module Fluent::Plugin
 
     def create_index_template(datastream_name, template_name, ilm_name, host = nil)
       return if data_stream_exist?(datastream_name, host) or template_exists?(template_name, host)
-      wildcard = @data_stream_template_do_not_use_wildcard ? '' : '*'
+      wildcard = @data_stream_template_do_not_use_index_patterns_wildcard ? '' : '*'
       body = {
         "index_patterns" => ["#{datastream_name}#{wildcard}"],
         "data_stream" => {},
