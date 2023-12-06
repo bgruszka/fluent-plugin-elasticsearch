@@ -1561,9 +1561,11 @@ Default value is `false`.
 
 **NOTE:** This parameter requests to install elasticsearch-xpack gem.
 
-### data_stream_template_do_not_use_index_patterns_wildcard
+### data_stream_template_use_index_patterns_wildcard
 
 Specify whether index patterns should include a wildcard (*) when creating an index template. This is particularly useful to prevent errors in scenarios where index templates are generated automatically, and multiple services with distinct suffixes are in use.
+
+Default value is `true`.
 
 Consider the following JSON error response when index patterns clash due to wildcard usage:
 ```json
@@ -1584,20 +1586,20 @@ Consider the following JSON error response when index patterns clash due to wild
 
 #### Usage Examples
 
-When `data_stream_template_do_not_use_index_patterns_wildcard` is set to `false` (default):
+When `data_stream_template_use_index_patterns_wildcard` is set to `true` (default):
 
 ```
 data_stream_name: foo
-data_stream_template_do_not_use_index_patterns_wildcard: false
+data_stream_template_use_index_patterns_wildcard: true
 ```
 
 In this case, the resulting index patterns will be: `["foo*"]`
 
-When `data_stream_template_do_not_use_index_patterns_wildcard` is set to `true`:
+When `data_stream_template_use_index_patterns_wildcard` is set to `false`:
 
 ```
 data_stream_name: foo
-data_stream_template_do_not_use_index_patterns_wildcard: true
+data_stream_template_use_index_patterns_wildcard: false
 ```
 
 The resulting index patterns will be: `["foo"]`

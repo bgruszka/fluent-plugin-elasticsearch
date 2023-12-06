@@ -490,7 +490,7 @@ class ElasticsearchOutputDataStreamTest < Test::Unit::TestCase
         'data_stream_name' => 'foo',
         'data_stream_ilm_name' => "foo_ilm_policy",
         'data_stream_template_name' => "foo_tpl",
-        'data_stream_template_do_not_use_index_patterns_wildcard' => true
+        'data_stream_template_use_index_patterns_wildcard' => false
       })
     assert_equal "foo", driver(conf).instance.data_stream_name
   end
@@ -567,12 +567,12 @@ class ElasticsearchOutputDataStreamTest < Test::Unit::TestCase
       data_stream_name                                        foo
       data_stream_template_name                               foo_tpl
       data_stream_ilm_name                                    foo_ilm_policy
-      data_stream_template_do_not_use_index_patterns_wildcard true
+      data_stream_template_use_index_patterns_wildcard        false
     }
 
     stub_default
 
-    assert_equal true, driver(config).instance.data_stream_template_do_not_use_index_patterns_wildcard
+    assert_equal false, driver(config).instance.data_stream_template_use_index_patterns_wildcard
   end
 
   def test_check_compression_strategy
@@ -762,7 +762,7 @@ class ElasticsearchOutputDataStreamTest < Test::Unit::TestCase
       '@type' => ELASTIC_DATA_STREAM_TYPE,
       'data_stream_name' => 'foo',
       'data_stream_ilm_name' => 'foo_ilm_policy',
-      'data_stream_template_do_not_use_index_patterns_wildcard' => true
+      'data_stream_template_use_index_patterns_wildcard' => false
     })
 
     assert_nothing_raised {
@@ -795,7 +795,7 @@ class ElasticsearchOutputDataStreamTest < Test::Unit::TestCase
       '@type' => ELASTIC_DATA_STREAM_TYPE,
       'data_stream_name' => 'foo',
       'data_stream_ilm_name' => 'foo_ilm_policy',
-      'data_stream_template_do_not_use_index_patterns_wildcard' => false
+      'data_stream_template_use_index_patterns_wildcard' => true
     })
 
     assert_nothing_raised {
